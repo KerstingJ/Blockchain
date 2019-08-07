@@ -100,7 +100,7 @@ class Blockchain(object):
         # TODO: set to 6 for real stuff
         guess = f"{block_string}{proof}".encode()
         hash = hashlib.sha256(guess).hexdigest()
-        return hash[:1] == "0"
+        return hash[:6] == "000000"
 
     def valid_chain(self, chain):
         """
@@ -218,10 +218,10 @@ def verify_chain_validity():
     return jsonify(response), 200
 
 
-@app.route('/lastproof', methods=['GET'])
+@app.route('/lastblock', methods=['GET'])
 def last_proof():
     response = {
-        'proof': blockchain.last_block.proof
+        'block': blockchain.last_block
     }
 
     return jsonify(response), 200
